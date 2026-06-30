@@ -1,0 +1,37 @@
+PRODUCT FAQ — AI SALES ASSISTANT TOOL
+
+Q: What does the AI Sales Assistant do?
+A: It helps sales teams prepare for calls, handle objections in real time, and draft follow-up emails. It pulls from your company's knowledge base to give contextual advice, not generic tips.
+
+Q: Do I need a CRM integration to use it?
+A: No. The tool works as a standalone application. CRM integration with Salesforce and HubSpot is available but optional. You can import leads manually via CSV if preferred.
+
+Q: How is the AI trained on our data?
+A: We use a technique called Retrieval-Augmented Generation. Your sales playbooks, product documents, and case studies are indexed into a vector database. When a rep asks a question, the system retrieves the most relevant pieces from your documents and gives an answer grounded in your actual content.
+
+Q: Is our data used to train the underlying model?
+A: No. Your documents are stored in your own private vector database and are only used for retrieval. They are never used to retrain or fine-tune the base language model.
+
+Q: What embedding model do you use?
+A: By default we use a private deployment of a sentence-transformers model for generating embeddings. Customers who require it can bring their own embedding model via our API.
+
+Q: How many documents can the system handle?
+A: The vector database scales to millions of document chunks. For most sales teams, the limit is never a practical concern. A 500-page sales playbook produces roughly 1000 to 2000 chunks.
+
+Q: What is a chunk and why does it matter?
+A: A chunk is a small segment of a document, typically 300 to 600 words. We split documents into chunks before embedding them because embedding a 100-page document as one unit produces a blurry average of all its content. Smaller chunks produce more precise search results.
+
+Q: How does retrieval work when I ask a question?
+A: Your question is converted into an embedding — a list of numbers that represent its meaning. The system then compares that embedding against all stored chunk embeddings using a similarity metric called cosine similarity. The top matching chunks are retrieved and passed to the language model as context for generating the answer.
+
+Q: Can it handle regional languages?
+A: The system supports English, Hindi, and Tamil at the moment. Additional languages are on the roadmap. Mixed-language queries are partially supported.
+
+Q: What happens if the answer is not in our documents?
+A: The system is designed to say it does not know rather than hallucinate. It includes a confidence threshold — if no retrieved chunk scores above that threshold, the model responds that it could not find relevant information in your knowledge base.
+
+Q: How long does it take to index a new document?
+A: Indexing a 50-page PDF typically takes 2 to 4 minutes, depending on document length and complexity. Once indexed, the document is immediately available for queries.
+
+Q: What is the pricing model?
+A: Pricing is per seat per month, with a base tier for up to 10 users. Volume discounts apply above 50 seats. Contact the sales team for enterprise pricing with custom SLAs.
